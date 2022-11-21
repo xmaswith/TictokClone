@@ -20,6 +20,7 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder {
     FrameLayout media_container;
     TextView tv_description;
     ImageView thumbnail, volumeControl;
+    CircleImageView civ_album;
     ProgressBar pb_horizontal;
     View parent;
     RequestManager requestManager;
@@ -32,6 +33,7 @@ public class VideoPlayerViewHolder extends RecyclerView.ViewHolder {
         tv_description = itemView.findViewById(R.id.tv_description);
         pb_horizontal = itemView.findViewById(R.id.pb_horizontal);
         volumeControl = itemView.findViewById(R.id.volume_control);
+        civ_album = itemView.findViewById(R.id.civ_album);
     }
 
     public void onBind(MediaObject mediaObject, RequestManager requestManager) {

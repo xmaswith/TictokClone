@@ -19,22 +19,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
+import com.daasuu.gpuv.player.GPUPlayerView;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.ExoTrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
-import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSource;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 import com.google.android.exoplayer2.util.MimeTypes;
 import com.google.android.exoplayer2.util.Util;
@@ -45,14 +44,19 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class VideoPlayerRecyclerView extends RecyclerView{
+public class VideoPlayerRecyclerView extends RecyclerView {
 
     private static final String TAG = "VideoPlayerRecyclerView";
 
-    private enum VolumeState {ON, OFF};
+    private enum VolumeState {ON, OFF}
+
+    ;
+    // controlling playback state
+    private VolumeState volumeState;
 
     // ui
     private ImageView thumbnail, volumeControl;
+    private CircleImageView civ_album;
     private ProgressBar progressBar;
     private View viewHolderParent;
     private FrameLayout frameLayout;
@@ -69,18 +73,18 @@ public class VideoPlayerRecyclerView extends RecyclerView{
     private RequestManager requestManager;
     public CircleImageView profileBtn;
 
-    // controlling playback state
-    private VolumeState volumeState;
 
     public VideoPlayerRecyclerView(@NonNull Context context) {
         super(context);
         init(context);
     }
+
     public VideoPlayerRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
-    private void init(Context context){
+
+    private void init(Context context) {
         this.context = context.getApplicationContext();
         Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         Point point = new Point();
@@ -111,16 +115,15 @@ public class VideoPlayerRecyclerView extends RecyclerView{
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     Log.d(TAG, "onScrollStateChanged: called.");
-                    if(thumbnail != null){ // show the old thumbnail
+                    if (thumbnail != null) { // show the old thumbnail
                         thumbnail.setVisibility(VISIBLE);
                     }
 
                     // There's a special case when the end of the list has been reached.
                     // Need to handle that with this bit of logic
-                    if(!recyclerView.canScrollVertically(1)){
+                    if (!recyclerView.canScrollVertically(1)) {
                         playVideo(true);
-                    }
-                    else{
+                    } else {
                         playVideo(false);
                     }
                 }
@@ -168,7 +171,7 @@ public class VideoPlayerRecyclerView extends RecyclerView{
                         if (progressBar != null) {
                             progressBar.setVisibility(GONE);
                         }
-                        if(!isVideoViewAdded){
+                        if (!isVideoViewAdded) {
                             addVideoView();
                         }
                         break;
@@ -178,11 +181,12 @@ public class VideoPlayerRecyclerView extends RecyclerView{
             }
         });
     }
+
     public void playVideo(boolean isEndOfList) {
 
         int targetPosition;
 
-        if(!isEndOfList){
+        if (!isEndOfList) {
             int startPosition = ((LinearLayoutManager) getLayoutManager()).findFirstVisibleItemPosition();
             int endPosition = ((LinearLayoutManager) getLayoutManager()).findLastVisibleItemPosition();
 
@@ -202,12 +206,10 @@ public class VideoPlayerRecyclerView extends RecyclerView{
                 int endPositionVideoHeight = getVisibleVideoSurfaceHeight(endPosition);
 
                 targetPosition = startPositionVideoHeight > endPositionVideoHeight ? startPosition : endPosition;
-            }
-            else {
+            } else {
                 targetPosition = startPosition;
             }
-        }
-        else{
+        } else {
             targetPosition = mediaObjects.size() - 1;
         }
 
@@ -241,6 +243,7 @@ public class VideoPlayerRecyclerView extends RecyclerView{
             return;
         }
 
+        civ_album = holder.civ_album;
         thumbnail = holder.thumbnail;
         progressBar = holder.pb_horizontal;
         volumeControl = holder.volumeControl;
@@ -259,9 +262,9 @@ public class VideoPlayerRecyclerView extends RecyclerView{
             MediaSource videoSource = new DashMediaSource.Factory(dataSourceFactory)
                     .createMediaSource(
                             new MediaItem.Builder()
-                            .setUri(Uri.parse(mediaUrl))
-                            .setMimeType(MimeTypes.APPLICATION_MPD)
-                            .build()
+                                    .setUri(Uri.parse(mediaUrl))
+                                    .setMimeType(MimeTypes.APPLICATION_MPD)
+                                    .build()
                     );
             videoPlayer.setMediaSource(videoSource);
             videoPlayer.setPlayWhenReady(true);
@@ -278,6 +281,7 @@ public class VideoPlayerRecyclerView extends RecyclerView{
     /**
      * Returns the visible region of the video surface on the screen.
      * if some is cut off, it will return less than the @videoSurfaceDefaultHeight
+     *
      * @param playPosition
      * @return
      */
@@ -294,7 +298,8 @@ public class VideoPlayerRecyclerView extends RecyclerView{
         child.getLocationInWindow(location);
 
         if (location[1] < 0) {
-            return location[1] + videoSurfaceDefaultHeight;
+//            return location[1] + videoSurfaceDefaultHeight;
+            return location[1] + screenDefaultHeight;
         } else {
             return screenDefaultHeight - location[1];
         }
@@ -313,10 +318,9 @@ public class VideoPlayerRecyclerView extends RecyclerView{
             isVideoViewAdded = false;
             viewHolderParent.setOnClickListener(null);
         }
-
     }
 
-    public void addVideoView(){
+    public void addVideoView() {
         frameLayout.addView(videoSurfaceView);
         isVideoViewAdded = true;
         videoSurfaceView.requestFocus();
@@ -325,8 +329,8 @@ public class VideoPlayerRecyclerView extends RecyclerView{
         thumbnail.setVisibility(GONE);
     }
 
-    private void resetVideoView(){
-        if(isVideoViewAdded){
+    private void resetVideoView() {
+        if (isVideoViewAdded) {
             removeVideoView(videoSurfaceView);
             playPosition = -1;
             videoSurfaceView.setVisibility(INVISIBLE);
@@ -335,12 +339,10 @@ public class VideoPlayerRecyclerView extends RecyclerView{
     }
 
     public void releasePlayer() {
-
         if (videoPlayer != null) {
             videoPlayer.release();
             videoPlayer = null;
         }
-
         viewHolderParent = null;
     }
 
@@ -350,7 +352,7 @@ public class VideoPlayerRecyclerView extends RecyclerView{
                 Log.d(TAG, "togglePlaybackState: enabling volume.");
                 setVolumeControl(VolumeState.ON);
 
-            } else if(volumeState == VolumeState.ON) {
+            } else if (volumeState == VolumeState.ON) {
                 Log.d(TAG, "togglePlaybackState: disabling volume.");
                 setVolumeControl(VolumeState.OFF);
 
@@ -358,26 +360,24 @@ public class VideoPlayerRecyclerView extends RecyclerView{
         }
     }
 
-    private void setVolumeControl(VolumeState state){
+    private void setVolumeControl(VolumeState state) {
         volumeState = state;
-        if(state == VolumeState.OFF){
+        if (state == VolumeState.OFF) {
             videoPlayer.setVolume(0f);
             animateVolumeControl();
-        }
-        else if(state == VolumeState.ON){
+        } else if (state == VolumeState.ON) {
             videoPlayer.setVolume(1f);
             animateVolumeControl();
         }
     }
 
-    private void animateVolumeControl(){
-        if(volumeControl != null){
+    private void animateVolumeControl() {
+        if (volumeControl != null) {
             volumeControl.bringToFront();
-            if(volumeState == VolumeState.OFF){
+            if (volumeState == VolumeState.OFF) {
                 requestManager.load(R.drawable.ic_volume_off)
                         .into(volumeControl);
-            }
-            else if(volumeState == VolumeState.ON){
+            } else if (volumeState == VolumeState.ON) {
                 requestManager.load(R.drawable.ic_volume_up)
                         .into(volumeControl);
             }
@@ -391,7 +391,7 @@ public class VideoPlayerRecyclerView extends RecyclerView{
         }
     }
 
-    public void setMediaObjects(ArrayList<MediaObject> mediaObjects){
+    public void setMediaObjects(ArrayList<MediaObject> mediaObjects) {
         this.mediaObjects = mediaObjects;
     }
 }

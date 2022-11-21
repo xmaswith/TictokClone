@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlack"
-    android:paddingTop="45dp"
     android:keepScreenOn="true"
-    tools:context=".HomeActivity">
+    tools:context=".FollowingActivity">
 
     <LinearLayout
         android:layout_alignParentTop="true"
+        android:layout_marginTop="26dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:translationZ="90dp"
@@ -23,7 +24,7 @@
             android:layout_weight="1"
             android:gravity="end|center"
             android:paddingEnd="20dp"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorGray"
             android:textStyle="bold"
             android:textSize="14sp"
             android:text="Following"/>
@@ -35,12 +36,13 @@
             android:background="@color/colorWhite"/>
 
         <TextView
+            android:id="@+id/tv_foryou"
             android:layout_width="0dp"
             android:layout_height="26dp"
             android:layout_weight="1"
             android:gravity="center|start"
             android:paddingStart="20dp"
-            android:textColor="@color/colorGray"
+            android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:textSize="14sp"
             android:text="For You"/>
@@ -48,14 +50,17 @@
 
     <com.pri.tictokclone.MainRecyclerView.VideoPlayerRecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         app:itemIconTint="@color/colorWhite"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_menu" />

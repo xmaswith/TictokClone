@@ -27,15 +27,6 @@
                 android:layout_height="match_parent"
                 android:scaleType="matrix" />
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:id="@+id/volume_control"
-                android:src="@drawable/ic_volume_up"
-                android:layout_alignParentEnd="true"
-                android:alpha="0"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="25dp"/>
 
         </RelativeLayout>
 
@@ -151,9 +142,9 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="25dp"
+            android:src="@mipmap/ic_album"
             app:civ_border_width="1dp"
-            app:civ_circle_background_color="@color/colorWhite"
-            android:src="@mipmap/ic_album" />
+            app:civ_circle_background_color="@color/colorWhite" />
 
     </RelativeLayout>
 
@@ -161,12 +152,22 @@
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:id="@+id/pb_horizontal"
         android:layout_marginBottom="70dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_width="0dp"
+        android:layout_height="1.2dp"
         android:layout_marginTop="8dp"
-        android:progressTint="@color/colorRed"
-        android:progressBackgroundTint="@color/colorWhite"
+        android:indeterminate="true"
+        android:progressTint="@color/colorWhite"
         android:layout_alignParentBottom="true"
         />
+
+    <ImageView
+        android:id="@+id/volume_control"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="25dp"
+        android:alpha="0"
+        android:src="@drawable/ic_volume_up" />
 
 </RelativeLayout>

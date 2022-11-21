@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/circle_background.xml" value="0.35833333333333334" />
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/circle_foreground.xml" value="0.35833333333333334" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_add.xml" value="0.3764102564102564" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_add_box.xml" value="0.375" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_album_foreground.xml" value="0.3764102564102564" />
@@ -10,17 +12,28 @@
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_comment_line.xml" value="0.375" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_favorite.xml" value="0.3764102564102564" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_favorite_border.xml" value="0.3764102564102564" />
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_flash.xml" value="0.34814814814814815" />
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_flash_off.xml" value="0.34814814814814815" />
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_flip_camera.xml" value="0.34814814814814815" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_home.xml" value="0.375" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.3764102564102564" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_logo.xml" value="0.3764102564102564" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_person.xml" value="0.3764102564102564" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_search.xml" value="0.375" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_share.xml" value="0.3764102564102564" />
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_stop.xml" value="0.3509259259259259" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_volume_off.xml" value="0.3731481481481482" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/drawable/ic_volume_up.xml" value="0.3731481481481482" />
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/layout/activity_account.xml" value="0.36614583333333334" />
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/layout/activity_discover.xml" value="0.36614583333333334" />
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/layout/activity_following.xml" value="0.36614583333333334" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/layout/activity_message.xml" value="0.3515625" />
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/layout/activity_record.xml" value="0.33" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/layout/layout_main.xml" value="0.33" />
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/layout/row_text.xml" value="0.36614583333333334" />
+        <entry key="..\:/createApp/TictokClone/app/src/main/res/layout/row_white_text.xml" value="0.36614583333333334" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/menu/bottom_menu.xml" value="0.36614583333333334" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/mipmap-anydpi-v26/ic_album.xml" value="0.3764102564102564" />
         <entry key="..\:/createApp/TictokClone/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22083333333333333" />
