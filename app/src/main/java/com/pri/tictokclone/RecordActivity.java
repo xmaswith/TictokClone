@@ -38,6 +38,7 @@ import java.util.List;
 public class RecordActivity extends AppCompatActivity {
     private FrameLayout view_container;
     private ImageButton ib_record;
+    private Button btn_addSound;
     
     private GLSurfaceView glSurfaceView;
     private GPUCameraRecorder gpu;
@@ -50,6 +51,8 @@ public class RecordActivity extends AppCompatActivity {
     private ImageView iv_flip, iv_flash, iv_close;
 
     private ListView lv_filter;
+    private String sound_url = null;
+    private String sound_title = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +66,17 @@ public class RecordActivity extends AppCompatActivity {
         iv_flip.setTag(0);
         iv_flash = findViewById(R.id.iv_flash);
         iv_close = findViewById(R.id.iv_close);
+        btn_addSound = findViewById(R.id.btn_addSound);
 
         ib_record = findViewById(R.id.ib_record);
         ib_record.setTag("stop");
+
+        sound_url = getIntent().getStringExtra("sound_url");
+        sound_title = getIntent().getStringExtra("sound_title");
+
+        if(sound_url!=null){
+            Toast.makeText(this, sound_url, Toast.LENGTH_SHORT).show();
+        }
 
         initListener();
     }
@@ -190,9 +201,10 @@ public class RecordActivity extends AppCompatActivity {
                     gpu = null;
                 }
 
-                Intent intent = new Intent(RecordActivity.this, HomeActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(RecordActivity.this, HomeActivity.class);
+//                startActivity(intent);
+//                finish();
+                onBackPressed();
             }
         });
 
@@ -206,6 +218,14 @@ public class RecordActivity extends AppCompatActivity {
                 if (gpu != null) {
                     gpu.setFilter(FilterType.createGlFilter(filterTypes.get(position), getApplicationContext()));
                 }
+            }
+        });
+
+        btn_addSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RecordActivity.this, SoundActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -253,6 +273,11 @@ public class RecordActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+//        Intent intent = new Intent(RecordActivity.this, HomeActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
         super.onBackPressed();
+        Log.e("backpress", "back pressed");
+        this.finish();
     }
 }

@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -152,13 +153,11 @@ public class HomeActivity extends AppCompatActivity {
         if(recyclerView!=null){
             recyclerView.releasePlayer();
         }
-        finish();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
     }
 
     //블로그 글 업로드 안됨
@@ -172,18 +171,18 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.nav_search:
                     Intent intent = new Intent(HomeActivity.this, DiscoverActivity.class);
                     startActivity(intent);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     return true;
                 case R.id.nav_home:
                 case R.id.nav_comment:
                     Intent intent1 = new Intent(HomeActivity.this, MessageActivity.class);
                     startActivity(intent1);
-                    intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     return true;
                 case R.id.nav_private:
                     Intent intent2 = new Intent(HomeActivity.this, AccountActivity.class);
                     startActivity(intent2);
-                    intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     return true;
             }
             return false;
@@ -211,12 +210,8 @@ public class HomeActivity extends AppCompatActivity {
                     Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE
             }, CAMERA_PERMISSION_REQUEST_CODE);
         } else {
-//            GLSurfaceView glSurfaceView;
-//            glSurfaceView = new GLSurfaceView(getApplicationContext());
             Intent intent = new Intent(HomeActivity.this, RecordActivity.class);
             startActivity(intent);
-//            Animatoo.animateSlideUp(HomeActivity.this);
-//                    finish();
         }
 
     }

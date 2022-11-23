@@ -23,6 +23,9 @@
         android:theme="@style/Theme.TictokClone"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SoundActivity"
+            android:exported="true" />
+        <activity
             android:name=".AccountActivity"
             android:exported="true" />
         <activity
@@ -33,6 +36,7 @@
             android:exported="true" />
         <activity
             android:name=".RecordActivity"
+            android:screenOrientation="nosensor"
             android:exported="true" />
         <activity
             android:name=".FollowingActivity"

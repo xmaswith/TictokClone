@@ -8,4 +8,8 @@ public interface ApiInterface {
     ///getting all posts///
     @GET("/MediaObject.json")
     Call<Users> performAllPosts();
+
+    ///getting all sounds///
+    @GET("/SoundModel.json")
+    Call<Users> performAllSounds();
 }
